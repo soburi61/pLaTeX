@@ -1,0 +1,197 @@
+
+%図を入れる用
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{comment}
+\usepackage{amsmath}
+\usepackage{listings}[langage=python3]
+\usepackage{jlisting}[langage=python3]
+\usepackage{url}
+\usepackage{titlesec}
+%これがないと警告がでてうざい
+\makeatletter
+\def\caption@documentclass{elsarticle}%
+\makeatother
+\usepackage[hang,small,bf]{caption}
+\usepackage{ifthen,calc}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\hypersetup{
+  setpagesize=false,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=red,
+}
+\usepackage[noabbrev]{cleveref}
+% crefをrefと見せかける
+% hyperrefと併用できない感じか？
+\let\nref\ref
+\let\ref\cref
+
+\captionsetup{compatibility=false} 
+\renewcommand{\thesubfigure}{\alph{subfigure}}
+%ソースコードをプログラムと読み替える
+\renewcommand{\lstlistingname}{プログラム}
+\def \suchipath{C:/drive/pg/Python/suchi/}
+\def \pgpath{C:/drive/pg/}
+
+%丸文字
+\newcommand{\onum}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
+%余白
+\usepackage[top=7truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsubsection}{\alph{subsubsection}.}
+\makeatletter
+%%%%% lstlistingのスタイル定義 ここから
+\lstdefinestyle{ex}{
+ frame={trbl},
+ frameround={tttt},
+ lineskip=-0.7ex,
+ numbers=none
+}
+
+\lstset{%default
+basicstyle={\ttfamily},
+ breaklines=true,
+ escapechar=\`,
+ columns=[l]{fullflexible},
+ keepspaces=true,
+ showstringspaces=false,
+ xrightmargin=0em,
+ xleftmargin=1em,
+ stepnumber=1,
+ lineskip=-0.5ex,
+ frame={lRtB},
+ frameround={nnnn},
+ numberstyle={\scriptsize},
+ numbers=left
+}
+% 参照フォーマット
+\crefname{equation}{式}{式}
+\crefname{figure}{図}{図}
+\crefname{subfigure}{図}{図}
+\crefname{table}{表}{表}
+\crefname{subtable}{表}{表}
+\crefname{appendix}{付録}{付録}
+\crefname{subappendix}{付録}{付録}
+\crefname{subsubappendix}{付録}{付録}
+\crefname{subsubsubappendix}{付録}{付録}
+\crefformat{lstlisting}{{プログラム}#2#1#3}
+\crefrangeformat{lstlisting}{{プログラム}#3#1#4{--}#5#2#6}
+\crefmultiformat{lstlisting}{{プログラム}#2#1#3}{, {プログラム}#2#1#3}{, #2#1#3}{, {プログラム}#2#1#3}
+
+\begin{comment}
+\crefformat{section}{#2#1#3{章}}
+\crefrangeformat{section}{#3#1#4{--}#5#2#6{章}}
+\crefmultiformat{section}{#2#1#3{章}}{, #2#1#3{章}}{, #2#1#3}{, #2#1#3{章}}
+\crefformat{subsection}{#2#1#3{節}}
+\crefrangeformat{subsection}{#3#1#4{--}#5#2#6{節}}
+\crefmultiformat{subsection}{#2#1#3{節}}{, #2#1#3{節}}{, #2#1#3}{, #2#1#3{節}}
+\crefformat{subsubsection}{#2#1#3{節}}
+\crefrangeformat{subsubsection}{#3#1#4{--}#5#2#6{節}}
+\crefmultiformat{subsubsection}{#2#1#3{節}}{, #2#1#3{節}}{, #2#1#3}{, #2#1#3{節}}
+\end{comment}
+%-------------自分用--------------
+%---------------------------------
+%チルダ~
+\def \tilde{$\sim$}
+%画像挿入コマンド\image{path}{caption}{label}{scale}
+\newcommand{\image}[4]{\begin{figure}[htbp]\centering\includegraphics[scale=#4]{#1}\caption{#2}\label{#3}\end{figure}}
+%空行-----------------
+\newcommand{\lnskip}{\vskip\baselineskip}
+%i--------------------
+\newcounter{i}
+\renewcommand{\i}{\value{i}}
+%表示するとき\arabic{i} とか\alph{i}
+%Rem------------------
+\newcounter{Rem}
+\newcommand{\Rem}{\value{Rem}}
+%nの倍数か判定し出力\IfMult{整数}{真のときの出力}{偽のときの出力}----------
+\newcommand{\IfMult}[3]{%
+	\setcounter{Rem}{\i/#1*#1-\i}%
+	\If{\Rem=0}{#2}{#3}%
+}
+%while,for{n回}{真}{偽}----------------
+\newcommand{\For}[2]{%
+	\setcounter{i}{1}%
+	\whiledo{\NOT \i > #1}{%
+  		#2%
+  		\addtocounter{i}{1}%
+	}%
+}
+%if{条件}{真}{偽}-------------------
+\newcommand{\If}[3]{\ifthenelse{#1}{#2}{#3}}
+%img[htbp(H)]{filename}{caption}{(fig:)label}{scale}------------------
+\newcommand{\img}[5][htbp]{%
+	\begin{figure}[#1]%
+		\centering%
+		\includegraphics[scale=#5]{#2}%
+		\caption{#3}%
+		\label{fig:#4}%
+	\end{figure}%
+}
+%someimg[option]{filename (1~.png)}{caption}{(fig:)label(1~)}{N個}{折り返し}{size}---------------------  
+\newcommand{\filepath}[1]{#1}
+\newcommand{\someimg}[7][]{%
+	\begin{figure}[tbp]%
+		\For{#5}{
+			\begin{minipage}{#7\hsize}%
+				\centering%
+				\includegraphics[#1]{#2\filepath{\number\i}.png}%
+				\subcaption{}%
+				\label{fig:#4\filepath{\number\i}}%
+			\end{minipage}%
+			\ifthenelse{#6=2}{\hfill}{}
+			\IfMult{#6}{\\}{}%
+		}%
+	\caption{#3}%
+	\label{fig:#4}
+	\end{figure}%
+}
+%--------------------
+%\somefig[scale]{filename}{caption}{label}{pagesize}
+\newcommand{\somefig}[5][]{%
+	\begin{minipage}{#5\linewidth}%
+		\centering
+		\includegraphics[#1]{#2}%
+		\subcaption{#3}%
+		\label{fig:#4}%
+	\end{minipage}%
+}
+%--------------------
+%表コマンド\begin{tab}{caption}{label}{lll}
+\newenvironment{tab}[4][htbp]{\begin{table}[#1]\centering\caption{#2}\label{tab:#3}\begin{tabular}{#4}}{\end{tabular}\end{table}}
+%複数表 \begin{sometab}{caption}{tab:label}{lll}{pagesize} \end{sometab}
+\newenvironment{sometab}[4]{\begin{minipage}[c]{#4\linewidth}\centering\subcaption{#1}\label{tab:#2}\begin{tabular}{#3}}{\end{tabular}\end{minipage}}
+
+
+\newenvironment{m}{\begin{equation}\begin{split}}{\end{split}\end{equation}}
+\newenvironment{e}{\begin{equation}}{\end{equation}}
+%------------------------------------------
+%------------------------------------------
+%sectionを1.というふうにする用measurement error
+  \def\@seccntformat#1{%
+  \@nameuse{@seccnt@prefix@#1}%
+  \@nameuse{the#1}%
+  \@nameuse{@seccnt@postfix@#1}%
+  \@nameuse{@seccnt@afterskip@#1}}
+  %-------------------------
+  %sectionのあとのピリオド
+  \def\@seccnt@prefix@section{}
+  \def\@seccnt@postfix@section{.}
+  \def\@seccnt@afterskip@section{\hskip1zw}
+  %----------------------------
+  %subsection字下げ
+  \def\subsection{\leftskip=1em% 本文 1字下げ
+  \@startsection{subsection}{2}{\z@}{0.00ex plus 1ex minus .2ex}{0.1ex plus .2ex}{\normalsize\bf}}
+  %-----------------------------
+  %subsub
+  \def\subsubsection{\leftskip=2em% 本文 2字下げ
+  \@startsection{subsubsection}{3}{\z@}{0.00ex plus 1ex minus .2ex}{0.1ex plus .2ex}{\normalsize\bf}}
+\makeatother
