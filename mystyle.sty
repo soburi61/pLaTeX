@@ -2,7 +2,6 @@
 %図を入れる用
 \usepackage[dvipdfmx]{graphicx}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}
 \usepackage{color}
 \usepackage{comment}
 \usepackage{amsmath}
@@ -10,6 +9,9 @@
 \usepackage{jlisting}[langage=python3]
 \usepackage{url}
 \usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{diagbox}
 %これがないと警告がでてうざい
 \makeatletter
 \def\caption@documentclass{elsarticle}%
@@ -38,8 +40,7 @@
 \renewcommand{\thesubfigure}{\alph{subfigure}}
 %ソースコードをプログラムと読み替える
 \renewcommand{\lstlistingname}{プログラム}
-\def \suchipath{C:/drive/pg/Python/suchi/}
-\def \pgpath{C:/drive/pg/}
+\def \pgpath{../../..}
 
 %丸文字
 \newcommand{\onum}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
@@ -72,6 +73,15 @@ basicstyle={\ttfamily},
  numberstyle={\scriptsize},
  numbers=left
 }
+%tab内でfootnotemarkを使う
+\makeatletter
+\def\@xfootnote[#1]{%
+  \protected@xdef\@thefnmark{#1}%
+  \@footnotemark\@footnotetext}
+\makeatother
+
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
 % 参照フォーマット
 \crefname{equation}{式}{式}
 \crefname{figure}{図}{図}
@@ -101,8 +111,7 @@ basicstyle={\ttfamily},
 %---------------------------------
 %チルダ~
 \def \tilde{$\sim$}
-%画像挿入コマンド\image{path}{caption}{label}{scale}
-\newcommand{\image}[4]{\begin{figure}[htbp]\centering\includegraphics[scale=#4]{#1}\caption{#2}\label{#3}\end{figure}}
+
 %空行-----------------
 \newcommand{\lnskip}{\vskip\baselineskip}
 %i--------------------
@@ -133,45 +142,31 @@ basicstyle={\ttfamily},
 		\centering%
 		\includegraphics[scale=#5]{#2}%
 		\caption{#3}%
-		\label{fig:#4}%
+		\label{#4}%
 	\end{figure}%
 }
 %someimg[option]{filename (1~.png)}{caption}{(fig:)label(1~)}{N個}{折り返し}{size}---------------------  
 \newcommand{\filepath}[1]{#1}
-\newcommand{\someimg}[7][]{%
-	\begin{figure}[tbp]%
-		\For{#5}{
-			\begin{minipage}{#7\hsize}%
-				\centering%
-				\includegraphics[#1]{#2\filepath{\number\i}.png}%
-				\subcaption{}%
-				\label{fig:#4\filepath{\number\i}}%
-			\end{minipage}%
-			\ifthenelse{#6=2}{\hfill}{}
-			\IfMult{#6}{\\}{}%
-		}%
-	\caption{#3}%
-	\label{fig:#4}
-	\end{figure}%
-}
 %--------------------
-%\somefig[scale]{filename}{caption}{label}{pagesize}
-\newcommand{\somefig}[5][]{%
+%\someimg[scale]{filename}{caption}{label}{pagesize}
+\newcommand{\someimg}[5][]{%
 	\begin{minipage}{#5\linewidth}%
 		\centering
 		\includegraphics[#1]{#2}%
 		\subcaption{#3}%
-		\label{fig:#4}%
+		\label{#4}%
 	\end{minipage}%
 }
 %--------------------
 %表コマンド\begin{tab}{caption}{label}{lll}
-\newenvironment{tab}[4][htbp]{\begin{table}[#1]\centering\caption{#2}\label{tab:#3}\begin{tabular}{#4}}{\end{tabular}\end{table}}
+\newenvironment{tab}[4][htbp]{\begin{table}[#1]\centering\caption{#2}\label{#3}\begin{tabular}{#4}}{\end{tabular}\end{table}}
 %複数表 \begin{sometab}{caption}{tab:label}{lll}{pagesize} \end{sometab}
-\newenvironment{sometab}[4]{\begin{minipage}[c]{#4\linewidth}\centering\subcaption{#1}\label{tab:#2}\begin{tabular}{#3}}{\end{tabular}\end{minipage}}
+\newenvironment{sometab}[4]{\begin{minipage}[c]{#4\linewidth}\centering\subcaption{#1}\label{#2}\begin{tabular}{#3}}{\end{tabular}\end{minipage}}
 
 
-\newenvironment{m}{\begin{equation}\begin{split}}{\end{split}\end{equation}}
+
+\newenvironment{m}{\begin{equation*}\begin{split}}{\end{split}\end{equation*}}
+
 \newenvironment{e}{\begin{equation}}{\end{equation}}
 %------------------------------------------
 %------------------------------------------
@@ -186,12 +181,7 @@ basicstyle={\ttfamily},
   \def\@seccnt@prefix@section{}
   \def\@seccnt@postfix@section{.}
   \def\@seccnt@afterskip@section{\hskip1zw}
-  %----------------------------
-  %subsection字下げ
-  \def\subsection{\leftskip=1em% 本文 1字下げ
-  \@startsection{subsection}{2}{\z@}{0.00ex plus 1ex minus .2ex}{0.1ex plus .2ex}{\normalsize\bf}}
   %-----------------------------
   %subsub
-  \def\subsubsection{\leftskip=2em% 本文 2字下げ
-  \@startsection{subsubsection}{3}{\z@}{0.00ex plus 1ex minus .2ex}{0.1ex plus .2ex}{\normalsize\bf}}
-\makeatother
+  \makeatother
+
