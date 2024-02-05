@@ -17,6 +17,7 @@
 表の下に脚注 \multicolumn{3}{l}{\cite{hagiwara}p.6 表1.1 より引用し一部改変.}
 複数画像
 \begin{figure}[htbp]
+   \someimg[scale]{filename}{caption}{label}{pagesize(半分なら0.5とか)}
    \someimg[scale]{filename}{caption}{label}{pagesize}
    \caption{caption}
    \label{label}
@@ -24,6 +25,11 @@
 
 複数表
 \begin{table}[htbp]
+   \begin{sometab}{caption}{tab:label}{lll}{pagesize(半分なら0.5とか)}
+       sin & cos \ \hline\hline
+      love & hate \
+      holy & meteo \ \hline
+   \end{sometab}
    \begin{sometab}{caption}{tab:label}{lll}{pagesize}
        sin & cos \ \hline\hline
       love & hate \
