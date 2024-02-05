@@ -121,28 +121,6 @@
 
 %空行-----------------
 \newcommand{\lnskip}{\vskip\baselineskip}
-%i--------------------
-\newcounter{i}
-\renewcommand{\i}{\value{i}}
-%表示するとき\arabic{i} とか\alph{i}
-%Rem------------------
-\newcounter{Rem}
-\newcommand{\Rem}{\value{Rem}}
-%nの倍数か判定し出力\IfMult{整数}{真のときの出力}{偽のときの出力}----------
-\newcommand{\IfMult}[3]{%
-	\setcounter{Rem}{\i/#1*#1-\i}%
-	\If{\Rem=0}{#2}{#3}%
-}
-%while,for{n回}{真}{偽}----------------
-\newcommand{\For}[2]{%
-	\setcounter{i}{1}%
-	\whiledo{\NOT \i > #1}{%
-  		#2%
-  		\addtocounter{i}{1}%
-	}%
-}
-%if{条件}{真}{偽}-------------------
-\newcommand{\If}[3]{\ifthenelse{#1}{#2}{#3}}
 %img[htbp(H)]{filename}{caption}{(fig:)label}{scale}------------------
 \newcommand{\img}[5][htbp]{%
 	\begin{figure}[#1]%
@@ -177,7 +155,7 @@
 \newenvironment{e}{\begin{equation}}{\end{equation}}
 %------------------------------------------
 %------------------------------------------
-%sectionを1.というふうにする用measurement error
+%sectionを1.というふうにする用
   \def\@seccntformat#1{%
   \@nameuse{@seccnt@prefix@#1}%
   \@nameuse{the#1}%
