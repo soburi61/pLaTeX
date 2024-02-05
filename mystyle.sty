@@ -12,13 +12,16 @@
 \usepackage{multirow}
 \usepackage{tabularx}
 \usepackage{diagbox}
+\usepackage{aliascnt}
+\usepackage{umoline}
+\usepackage{pdfpages}
 %これがないと警告がでてうざい
 \makeatletter
 \def\caption@documentclass{elsarticle}%
 \makeatother
 \usepackage[hang,small,bf]{caption}
 \usepackage{ifthen,calc}
-\usepackage[subrefformat=parens]{subcaption}
+\usepackage{subcaption}
 \usepackage{float}
 \usepackage{amssymb}
 \usepackage{hyperref}
@@ -44,9 +47,11 @@
 
 %丸文字
 \newcommand{\onum}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
+%ロリバさんの囲み文字大きさ固定化
+\newcommand{\mybox}[1]{\framebox[1.2em]{\rule{0pt}{1.6ex}#1}}
 %余白
 \usepackage[top=7truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
-\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesection}{\arabic{section}.}
 \renewcommand{\thesubsubsection}{\alph{subsubsection}.}
 \makeatletter
 %%%%% lstlistingのスタイル定義 ここから
@@ -57,8 +62,10 @@
  numbers=none
 }
 
+
 \lstset{%default
-basicstyle={\ttfamily},
+  language=Python,
+  basicstyle={\ttfamily},
  breaklines=true,
  escapechar=\`,
  columns=[l]{fullflexible},
@@ -80,8 +87,8 @@ basicstyle={\ttfamily},
   \@footnotemark\@footnotetext}
 \makeatother
 
-\captionsetup[subfigure]{labelformat=simple}
-\renewcommand{\thesubfigure}{(\alph{subfigure})}
+%\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubfigure}{\alph{subfigure}}
 % 参照フォーマット
 \crefname{equation}{式}{式}
 \crefname{figure}{図}{図}
@@ -148,7 +155,7 @@ basicstyle={\ttfamily},
 %someimg[option]{filename (1~.png)}{caption}{(fig:)label(1~)}{N個}{折り返し}{size}---------------------  
 \newcommand{\filepath}[1]{#1}
 %--------------------
-%\someimg[scale]{filename}{caption}{label}{pagesize}
+%\someimg[scale]{filename}{caption}{(fig:)label}{pagesize}
 \newcommand{\someimg}[5][]{%
 	\begin{minipage}{#5\linewidth}%
 		\centering
