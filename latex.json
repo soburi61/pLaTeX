@@ -1,0 +1,191 @@
+{
+	"report": {
+        "prefix": "report",
+        "body": [
+            "\\documentclass[a4paper,10pt,titlepage,dvipdfmx]{jsarticle}",
+            "\\pagestyle{empty}",
+            "\\usepackage{../../mystyle}",
+            "\\begin{comment}",
+            "空行\\lnskip",
+            "字下げなし\\noindent",
+            "字下げ\\par",
+            "",
+            "画像コマンド\\img[htbp(H)]{name}{caption}{fig:label}{scale}",
+            "表コマンド\\begin{tab}{caption}{tab:label}{lll}\\end{tab}",
+            "\\multicolumn{3}{l}{}",
+            "\\multirow{3}{l}{}",
+            "改行\\shortstack{aa\\\\aa}",
+            "縦位置を合わすには別の列の要素も\\shortstack{aa\\{}}",
+            "縦結合 罫線\\cline{2-5}",
+            "表の中に脚注 *1とつけたいとこに\\footnotemark[数字]{文字を書きたいときはこれを追加}",
+            "表の下に脚注 \\multicolumn{3}{l}{\\cite{hagiwara}p.6 表1.1 より引用し一部改変.}",
+            "複数画像",
+            "\\begin{figure}[htbp]",
+            "   \\someimg[scale]{filename}{caption}{label}{pagesize}",
+            "   \\caption{caption}",
+            "   \\label{label}",
+            "\\end{figure}",
+            "",
+            "複数表",
+            "\\begin{table}[htbp]",
+            "   \\begin{sometab}{caption}{tab:label}{lll}{pagesize}",
+            "       sin & cos \\\\ \\hline\\hline",
+            "      love & hate \\\\",
+            "      holy & meteo \\\\ \\hline",
+            "   \\end{sometab}",
+            "   \\caption{caption}",
+            "   \\label{label}",
+            "\\end{table}",
+            "",
+            "",
+            "\\section{課題}",
+            "\\subsection{課題の問題}",
+            "\\subsection{アルゴリズム}",
+            "\\subsection{プログラム}",
+            "\\subsection{実験結果}",
+            "\\subsection{考察}",
+            "\\end{comment}",
+            "",
+            "%--------------------------",
+            "%--------------------------",
+            "\\title{${1:レポート}}",
+            "\\author{HI5 12 小宮英誠}",
+            "\\date{提出日\\today\\\\\\\\実験日 ${2:2023}年${3:4}月${4:}日}",
+            "%--------------------------",
+            "%--------------------------",
+            "\\begin{document}",
+            "\\maketitle",
+            "\\section{a}",
+            "$0",
+            "\\end{document}"
+        ],
+        "description": "授業レポート用テンプレート"
+    },
+    "img":{
+        "prefix":"img",
+        "body":[
+            "\\img[htbp]{${1:name}}{${2:caption}}{fig:${3:label}}{${4:scale}}"
+        ],
+        "description":"img"
+    },
+    "someimg":{
+        "prefix":"someimg",
+        "body":[
+            "\\begin{figure}[htbp]",
+            "\\centering",
+            "   \\someimg[${1:1}]{${2:name}}{${3:caption}}{fig:${4:label}}{${5:pagesize(0.5)}}",
+            "   \\someimg[$1]{$2$6}{$3$7}{fig:$4$8}{$5}",
+            "   \\caption{$9}",
+            "   \\label{fig:$10}",
+            "\\end{figure}"
+        ],
+        "description":"someimg"
+    },
+    "tab":{
+        "prefix":"tab",
+        "body":[
+            "\\begin{tab}{${1:caption}}{tab:${2:label}}{${3:lll}}",
+            "   $0 & \\\\\\ \\hline\\hline",
+            "   & \\\\\\",
+            "   & \\\\\\ \\hline",
+            "\\end{tab}"
+        ],
+        "description":"tab"
+    },
+    "sometab":{
+        "prefix":"sometab",
+        "body":[
+            "\\begin{tab}[htbp]",
+            "   \\begin{sometab}{${1:caption}}{tab:${2:label}}{${3:lll}}{${4:pagesize(0.5)}}",
+            "       $0 & \\\\ \\hline\\hline",
+            "          & \\\\",
+            "          & \\\\ \\hline",
+            "   \\end{sometab}",
+            "   \\caption{$5}",
+            "   \\label{fig:$6}",
+            "\\end{table}"
+        ],
+        "description":"somefig"
+    },
+    "lstinput":{
+        "prefix":"lstinputlisting",
+        "body":[
+            "\\lstinputlisting[caption=${1:filename.xxx},label=pro:${2:label}]{\\dir/${3:$1}}"
+        ],
+        "description":"lstinputlisting"
+    },
+    "lstlisting":{
+        "prefix":"lstlisting",
+        "body":[
+            "\\begin{lstlisting}[caption=${1:filename.xxx},label=pro:${2:label}]",
+            "$0",
+            "\\end{lstlisting}"
+        ],
+        "description":"lstlisting"
+    },
+    "ex":{
+        "prefix":"style ex",
+        "body":[
+            "\\begin{lstlisting}[style=ex]",
+            "$0",
+            "\\end{lstlisting}"
+        ],
+        "description":"lstlisting style ex mode"
+    },
+    "eq":{
+        "prefix":"equation",
+        "body":[
+            "\\begin{equation${1:*}}",
+            "\\begin{split}",
+            "$0",
+            "\\end{split}",
+            "\\end{equation$1}"
+        ],
+        "description":"equation"
+    },
+    "setpgdir":{
+        "prefix":"set program dir",
+        "body":[
+            "\\def \\dir{\\pgpath/$0}"
+        ],
+        "description":"set program dir"
+    },
+    "bibi":{
+        "prefix":"thebiliography",
+        "body":[
+            "\\begin{thebibliography}{99}",
+                "%IEEE基準",
+                "%書籍 作者のファーストネームのイニシャル. ラストネーム, \"書籍タイトル\", 出版社名, 市, 州, 国, 出版年.",
+                "%example: R. Smith, “Renewable Energy Sources,” Springer, Berlin, Germany, 2012.",
+                "\\bibitem{b1}",
+                "%website 執筆者のファーストネームのイニシャル. ラストネーム, \"ウエブページ名,\"サイト名, URL, 月 年（アクセスした月年）.",
+                "%example:S. Patel, “Top 10 AI Companies,” Forbes, https://www.forbes.com/top-ai-companies/?sh=2a89a75a6f44, Oct. 2022 (accessed Feb. 2023).",
+                "\\bibitem{b2} ",
+                "%レポート,論文 執筆者のファーストネームのイニシャル. ラストネーム, “レポート名,” 機関名, 市, 州, 月 年.",
+                "%example:T. Nguyen, \"Global AI Market Report 2022,\" Gartner Inc., Stamford, CT, Sept. 2022.",
+                "\\bibiitem{b3}",
+            "\\end{thebibliography}"
+        ],
+        "description":"bibliography"
+    },
+    "set section":{
+        "prefix":"set section",
+        "body":[
+            "\\renewcommand{\\thesubsubsection}{\\alph{subsubsection}.}"
+        ],
+        "description":"set section"
+    },
+	// Place your snippets for latex here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+}
