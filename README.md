@@ -1,6 +1,6 @@
 # pLaTeX
 mysyle.sty:スタイルファイル  
-template.tex:テンプレ
+template.tex:テンプレ  
 latex.json:VScodeで使う場合のユーザースニペット  
 .styファイルをダウンロードし,.texと同じ階層に置けば,\usepackage{mystyle}とすることでマクロをつかえる様になる
 template.texで直接参照されるので,mksty~(覚えてない)みたいな更新はしなくてよい  
